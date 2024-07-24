@@ -29,6 +29,17 @@ class Demon::Sidekiq < ::Demon::Base
     Demon::Sidekiq.after_fork&.call
     SignalTrapLogger.instance.after_fork
 
+    # Temporarily enable object allocations tracing for Sidekiq and dump memory
+    ObjectSpace.trace_object_allocations_start
+    Thread.new do
+      loop do
+        GC.start
+        filename = "/tmp/sidekiq_#{Time.now.strftime("%Y-%m-%d-%H-%M-%S")}_#{Process.pid}.dump"
+        File.open(filename, "w") { |f| ObjectSpace.dump_all(output: f) }
+        sleep 10 * 60
+      end
+    end
+
     log("Loading Sidekiq in process id #{Process.pid}")
     require "sidekiq/cli"
     cli = Sidekiq::CLI.instance
