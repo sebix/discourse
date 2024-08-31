@@ -118,6 +118,7 @@
     "./plugins/styleguide/assets/javascripts",
     "./plugins/styleguide/test/javascripts"
   ],
+  "exclude": "**/*.hbs",
   "glint": {
     "environment": [
       "ember-loose",

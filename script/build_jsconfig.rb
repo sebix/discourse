@@ -39,6 +39,7 @@ def write_config(package_dir, extras: {})
       },
     },
     "include" => namespaces.flat_map { |ns, paths| paths.map { |p| relative(package_dir, p) } },
+    "exclude" => "**/*.hbs",
     "glint" => {
       "environment" => %w[ember-loose ember-template-imports],
     },
