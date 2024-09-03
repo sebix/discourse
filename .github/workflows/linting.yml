@@ -91,4 +91,4 @@ jobs:
 
       - name: Glint
         if: ${{ !cancelled() }}
-        run: yarn glint -p jsconfig.json
+        run: pnpm glint -p jsconfig.json
