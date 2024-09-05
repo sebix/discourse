@@ -3,7 +3,7 @@
 // docs/CHANGELOG-JAVASCRIPT-PLUGIN-API.md whenever you change the version
 // using the format described at https://keepachangelog.com/en/1.0.0/.
 
-export const PLUGIN_API_VERSION = "1.37.2";
+export const PLUGIN_API_VERSION = "1.38.0";
 
 import $ from "jquery";
 import { h } from "virtual-dom";
@@ -25,6 +25,7 @@ import { headerButtonsDAG } from "discourse/components/header";
 import { headerIconsDAG } from "discourse/components/header/icons";
 import { addWidgetCleanCallback } from "discourse/components/mount-widget";
 import { addPluginOutletDecorator } from "discourse/components/plugin-connector";
+import { _postMenuPluginApi } from "discourse/components/post/menu";
 import {
   addPluginReviewableParam,
   registerReviewableActionModal,
@@ -765,6 +766,10 @@ class PluginApi {
    **/
   includePostAttributes(...attributes) {
     includeAttributes(...attributes);
+  }
+
+  get postMenuButtons() {
+    return _postMenuPluginApi;
   }
 
   /**
