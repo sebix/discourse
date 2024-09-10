@@ -125,10 +125,7 @@ import {
 import { setNewCategoryDefaultColors } from "discourse/routes/new-category";
 import { setNotificationsLimit } from "discourse/routes/user-notifications";
 import { addComposerSaveErrorCallback } from "discourse/services/composer";
-import {
-  addedWidgetPostMenuExtension,
-  addPostClassesCallback,
-} from "discourse/widgets/post";
+import { addPostClassesCallback } from "discourse/widgets/post";
 import { addDecorator } from "discourse/widgets/post-cooked";
 import {
   addButton,
@@ -824,7 +821,6 @@ class PluginApi {
    *  }
    **/
   addPostMenuButton(name, callback) {
-    addedWidgetPostMenuExtension();
     deprecated(
       "`api.addPostMenuButton` has been deprecated. Use `api.postMenuButtons.add(...)` instead",
       {
@@ -903,7 +899,6 @@ class PluginApi {
    * ```
    **/
   removePostMenuButton(name, callback) {
-    addedWidgetPostMenuExtension();
     deprecated(
       "`api.removePostMenuButton` has been deprecated. Use `api.postMenuButtons.delete(...)` instead",
       {
@@ -932,7 +927,6 @@ class PluginApi {
    * });
    **/
   replacePostMenuButton(name, widget) {
-    addedWidgetPostMenuExtension();
     deprecated(
       "`api.replacePostMenuButton` has been deprecated. Use `api.postMenuButtons.replace(...)` instead",
       {
@@ -3305,7 +3299,6 @@ class PluginApi {
     // }
 
     if (DEPRECATED_POST_MENU_WIDGETS.includes(widgetName)) {
-      addedWidgetPostMenuExtension();
       deprecated(
         `The ${widgetName} widget has been deprecated and ${override} is no longer a supported override.`,
         {
