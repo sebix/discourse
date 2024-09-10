@@ -24,7 +24,8 @@ module("Integration | Component | Widget | post", function (hooks) {
 
     this.set("args", { shareUrl: "/example", post_number: 1, topic });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(exists(".names"), "includes poster name");
     assert.ok(exists("a.post-date"), "includes post date");
@@ -41,7 +42,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     });
 
     await render(
-      hbs`<MountWidget @widget="post-contents" @args={{this.args}} />`
+      hbs`
+        <MountWidget @widget="post-contents" @args={{this.args}} />`
     );
 
     assert.strictEqual(queryAll(".badge.clicks")[0].innerText, "1");
@@ -69,7 +71,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     });
 
     await render(
-      hbs`<MountWidget @widget="post-contents" @args={{this.args}} />`
+      hbs`
+        <MountWidget @widget="post-contents" @args={{this.args}} />`
     );
 
     assert.strictEqual(count(".badge.clicks"), 2);
@@ -108,9 +111,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { via_email: true, canViewRawEmail: true });
     this.set("showRawEmail", () => (this.rawEmailShown = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @showRawEmail={{this.showRawEmail}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @showRawEmail={{this.showRawEmail}} />`
+    );
 
     await click(".post-info.via-email");
     assert.ok(this.rawEmailShown, "clicking the envelope shows the raw email");
@@ -120,9 +124,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { via_email: true, canViewRawEmail: false });
     this.set("showRawEmail", () => (this.rawEmailShown = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @showRawEmail={{this.showRawEmail}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @showRawEmail={{this.showRawEmail}} />`
+    );
 
     await click(".post-info.via-email");
     assert.ok(
@@ -135,9 +140,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { version: 3, canViewEditHistory: true });
     this.set("showHistory", () => (this.historyShown = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @showHistory={{this.showHistory}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @showHistory={{this.showHistory}} />`
+    );
 
     await click(".post-info.edits button");
     assert.ok(this.historyShown, "clicking the pencil shows the history");
@@ -147,9 +153,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { version: 3, canViewEditHistory: false });
     this.set("showHistory", () => (this.historyShown = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @showHistory={{this.showHistory}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @showHistory={{this.showHistory}} />`
+    );
 
     await click(".post-info.edits");
     assert.ok(
@@ -161,7 +168,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("whisper", async function (assert) {
     this.set("args", { isWhisper: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.strictEqual(count(".topic-post.whisper"), 1);
     assert.strictEqual(count(".post-info.whisper"), 1);
@@ -181,7 +189,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { likeCount: 1 });
 
     await render(
-      hbs`<MountWidget @widget="post" @model={{this.post}} @args={{this.args}} />`
+      hbs`
+        <MountWidget @widget="post" @model={{this.post}} @args={{this.args}} />`
     );
 
     assert.strictEqual(count("button.like-count"), 1);
@@ -202,7 +211,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { likeCount: 0 });
 
     await render(
-      hbs`<MountWidget @widget="post" @model={{this.post}} @args={{this.args}} />`
+      hbs`
+        <MountWidget @widget="post" @model={{this.post}} @args={{this.args}} />`
     );
 
     assert.ok(!exists("button.like-count"));
@@ -212,7 +222,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.siteSettings.post_menu += "|share";
     this.set("args", { shareUrl: "http://share-me.example.com" });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(exists(".actions button.share"), "it renders a share button");
   });
@@ -220,7 +231,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("copy link button", async function (assert) {
     this.set("args", { shareUrl: "http://share-me.example.com" });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(
       exists(".actions button.post-action-menu__copy-link"),
@@ -236,9 +248,10 @@ module("Integration | Component | Widget | post", function (hooks) {
       args.likeCount = args.liked ? 1 : 0;
     });
 
-    await render(hbs`
-      <MountWidget @widget="post-menu" @args={{this.args}} @toggleLike={{this.toggleLike}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post-menu" @args={{this.args}} @toggleLike={{this.toggleLike}} />`
+    );
 
     assert.ok(exists(".actions button.like"));
     assert.ok(!exists(".actions button.like-count"));
@@ -260,9 +273,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", args);
     this.set("showLogin", () => (this.loginShown = true));
 
-    await render(hbs`
-      <MountWidget @widget="post-menu" @args={{this.args}} @showLogin={{this.showLogin}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post-menu" @args={{this.args}} @showLogin={{this.showLogin}} />`
+    );
 
     assert.ok(exists(".actions button.like"));
     assert.ok(!exists(".actions button.like-count"));
@@ -281,9 +295,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canEdit: true });
     this.set("editPost", () => (this.editPostCalled = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @editPost={{this.editPost}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @editPost={{this.editPost}} />`
+    );
 
     await click("button.edit");
     assert.ok(this.editPostCalled, "it triggered the edit action");
@@ -292,7 +307,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`edit button - can't edit`, async function (assert) {
     this.set("args", { canEdit: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.edit"), "button is not displayed");
   });
@@ -301,9 +317,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canDelete: true });
     this.set("deletePost", () => (this.deletePostCalled = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />`
+    );
 
     await click("button.delete");
     assert.ok(this.deletePostCalled, "it triggered the delete action");
@@ -313,9 +330,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canDeleteTopic: true });
     this.set("deletePost", () => (this.deletePostCalled = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />`
+    );
 
     await click("button.delete");
     assert.ok(this.deletePostCalled, "it triggered the delete action");
@@ -324,7 +342,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`delete topic button - can't delete`, async function (assert) {
     this.set("args", { canDeleteTopic: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.delete"), `button is not displayed`);
   });
@@ -336,7 +355,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       canFlag: true,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     await click(".show-more-actions");
 
@@ -353,9 +373,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canRecoverTopic: true });
     this.set("recoverPost", () => (this.recovered = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @recoverPost={{this.recoverPost}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @recoverPost={{this.recoverPost}} />`
+    );
 
     await click("button.recover");
     assert.ok(this.recovered);
@@ -364,7 +385,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`recover topic button - can't recover`, async function (assert) {
     this.set("args", { canRecoverTopic: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.recover"), `button is not displayed`);
   });
@@ -373,9 +395,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canDelete: true, canFlag: true });
     this.set("deletePost", () => (this.deletePostCalled = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />`
+    );
 
     await click(".show-more-actions");
     await click("button.delete");
@@ -385,7 +408,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`delete post button - can't delete`, async function (assert) {
     this.set("args", { canDelete: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.delete"), `button is not displayed`);
   });
@@ -397,7 +421,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       canFlag: false,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.delete"), `delete button is not displayed`);
     assert.ok(!exists("button.create-flag"), `flag button is not displayed`);
@@ -407,9 +432,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canRecover: true });
     this.set("recoverPost", () => (this.recovered = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @recoverPost={{this.recoverPost}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @recoverPost={{this.recoverPost}} />`
+    );
 
     await click("button.recover");
     assert.ok(this.recovered);
@@ -418,7 +444,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`recover post button - can't recover`, async function (assert) {
     this.set("args", { canRecover: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.recover"), `button is not displayed`);
   });
@@ -427,9 +454,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canFlag: true });
     this.set("showFlags", () => (this.flagsShown = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @showFlags={{this.showFlags}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @showFlags={{this.showFlags}} />`
+    );
 
     assert.strictEqual(count("button.create-flag"), 1);
 
@@ -440,7 +468,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`flagging: can't flag`, async function (assert) {
     this.set("args", { canFlag: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.create-flag"));
   });
@@ -448,7 +477,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`flagging: can't flag when post is hidden`, async function (assert) {
     this.set("args", { canFlag: true, hidden: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.create-flag"));
   });
@@ -456,7 +486,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`read indicator`, async function (assert) {
     this.set("args", { read: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(exists(".read-state.read"));
   });
@@ -464,7 +495,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test(`unread indicator`, async function (assert) {
     this.set("args", { read: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(exists(".read-state"));
   });
@@ -476,7 +508,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       replyDirectlyAbove: true,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("a.reply-to-tab"), "hides the tab");
     assert.ok(!exists(".avoid-tab"), "doesn't have the avoid tab class");
@@ -489,7 +522,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       replyDirectlyAbove: false,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(exists("a.reply-to-tab"), "shows the tab");
     assert.strictEqual(count(".avoid-tab"), 1, "has the avoid tab class");
@@ -503,7 +537,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     });
     this.siteSettings.suppress_reply_directly_above = false;
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.strictEqual(count(".avoid-tab"), 1, "has the avoid tab class");
     await click("a.reply-to-tab");
@@ -515,9 +550,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { cooked_hidden: true, canSeeHiddenPost: true });
     this.set("expandHidden", () => (this.unhidden = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @expandHidden={{this.expandHidden}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @expandHidden={{this.expandHidden}} />`
+    );
 
     await click(".topic-body .expand-hidden");
     assert.ok(this.unhidden, "triggers the action");
@@ -527,9 +563,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { cooked_hidden: true, canSeeHiddenPost: false });
     this.set("expandHidden", () => (this.unhidden = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @expandHidden={{this.expandHidden}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @expandHidden={{this.expandHidden}} />`
+    );
 
     assert.ok(!exists(".topic-body .expand-hidden"), "button is not displayed");
   });
@@ -540,7 +577,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("post", store.createRecord("post", { id: 1234 }));
 
     await render(
-      hbs`<MountWidget @widget="post" @model={{this.post}} @args={{this.args}} />`
+      hbs`
+        <MountWidget @widget="post" @model={{this.post}} @args={{this.args}} />`
     );
 
     await click(".topic-body .expand-post");
@@ -550,7 +588,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("can't bookmark", async function (assert) {
     this.set("args", { canBookmark: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.bookmark"));
     assert.ok(!exists("button.bookmarked"));
@@ -562,9 +601,10 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", args);
     this.set("toggleBookmark", () => (args.bookmarked = true));
 
-    await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @toggleBookmark={{this.toggleBookmark}} />
-    `);
+    await render(
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @toggleBookmark={{this.toggleBookmark}} />`
+    );
 
     assert.strictEqual(count(".post-menu-area .bookmark"), 1);
     assert.ok(!exists("button.bookmarked"));
@@ -573,7 +613,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("can't show admin menu when you can't manage", async function (assert) {
     this.set("args", { canManage: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists(".post-menu-area .show-post-admin-menu"));
   });
@@ -582,14 +623,15 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.set("args", { canManage: true });
 
     await render(
-      hbs`<MountWidget @widget="post" @args={{this.args}} /><DMenus />`
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} />
+        <DMenus/>`
     );
 
     assert
       .dom("[data-content][data-identifier='admin-post-menu']")
       .doesNotExist();
     await click(".post-menu-area .show-post-admin-menu");
-
     assert.dom("[data-content][data-identifier='admin-post-menu']").exists();
 
     await triggerEvent(".post-menu-area", "pointerdown");
@@ -599,11 +641,28 @@ module("Integration | Component | Widget | post", function (hooks) {
   });
 
   test("permanently delete topic", async function (assert) {
-    this.set("args", { canManage: true, canPermanentlyDelete: true });
+    this.currentUser.set("admin", true);
+    const store = getOwner(this).lookup("service:store");
+    const topic = store.createRecord("topic", {
+      id: 123,
+      details: { can_permanently_delete: true },
+    });
+    const post = store.createRecord("post", {
+      id: 1,
+      post_number: 1,
+      deleted_at: new Date().toISOString(),
+      topic,
+    });
+
+    this.set("args", { canManage: true });
+    this.set("post", post);
     this.set("permanentlyDeletePost", () => (this.deleted = true));
 
     await render(
-      hbs`<MountWidget @widget="post" @args={{this.args}} @permanentlyDeletePost={{this.permanentlyDeletePost}} /><DMenus />`
+      hbs`
+        <MountWidget @widget="post" @args={{this.args}} @model={{this.post}}
+                     @permanentlyDeletePost={{this.permanentlyDeletePost}} />
+        <DMenus/>`
     );
 
     await click(".post-menu-area .show-post-admin-menu");
@@ -617,12 +676,27 @@ module("Integration | Component | Widget | post", function (hooks) {
   });
 
   test("permanently delete post", async function (assert) {
-    this.set("args", { canManage: true, canPermanentlyDelete: true });
+    this.currentUser.set("admin", true);
+    const store = getOwner(this).lookup("service:store");
+    const topic = store.createRecord("topic", {
+      id: 123,
+    });
+    const post = store.createRecord("post", {
+      id: 1,
+      post_number: 2,
+      deleted_at: new Date().toISOString(),
+      can_permanently_delete: true,
+      topic,
+    });
+
+    this.set("args", { canManage: true });
+    this.set("post", post);
     this.set("permanentlyDeletePost", () => (this.deleted = true));
 
     await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @permanentlyDeletePost={{this.permanentlyDeletePost}} />
-      <DMenus />
+      <MountWidget @widget="post" @args={{this.args}} @model={{this.post}}
+                   @permanentlyDeletePost={{this.permanentlyDeletePost}} />
+      <DMenus/>
     `);
 
     await click(".post-menu-area .show-post-admin-menu");
@@ -643,8 +717,7 @@ module("Integration | Component | Widget | post", function (hooks) {
 
     await render(hbs`
       <MountWidget @widget="post" @args={{this.args}} @togglePostType={{this.togglePostType}} />
-      <DMenus />
-    `);
+      <DMenus/>`);
 
     await click(".post-menu-area .show-post-admin-menu");
     await click(
@@ -658,13 +731,22 @@ module("Integration | Component | Widget | post", function (hooks) {
   });
 
   test("rebake post", async function (assert) {
+    this.currentUser.moderator = true;
+    const store = getOwner(this).lookup("service:store");
+    const topic = store.createRecord("topic", { id: 123 });
+    const post = store.createRecord("post", {
+      id: 1,
+      post_number: 1,
+      topic,
+    });
+
     this.set("args", { canManage: true });
+    this.set("post", post);
     this.set("rebakePost", () => (this.baked = true));
 
     await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @rebakePost={{this.rebakePost}} />
-      <DMenus />
-    `);
+      <MountWidget @widget="post" @args={{this.args}} @model={{this.post}} @rebakePost={{this.rebakePost}} />
+      <DMenus/>`);
 
     await click(".post-menu-area .show-post-admin-menu");
     await click(
@@ -679,12 +761,22 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("unhide post", async function (assert) {
     let unhidden;
     this.currentUser.admin = true;
-    this.set("args", { canManage: true, hidden: true });
+    const store = getOwner(this).lookup("service:store");
+    const topic = store.createRecord("topic", { id: 123 });
+    const post = store.createRecord("post", {
+      id: 1,
+      post_number: 1,
+      hidden: true,
+      topic,
+    });
+
+    this.set("args", { canManage: true });
+    this.set("post", post);
     this.set("unhidePost", () => (unhidden = true));
 
     await render(hbs`
-      <MountWidget @widget="post" @args={{this.args}} @unhidePost={{this.unhidePost}} />
-      <DMenus />
+      <MountWidget @widget="post" @args={{this.args}} @model={{this.post}} @unhidePost={{this.unhidePost}} />
+      <DMenus/>
     `);
 
     await click(".post-menu-area .show-post-admin-menu");
@@ -707,7 +799,7 @@ module("Integration | Component | Widget | post", function (hooks) {
 
     await render(hbs`
       <MountWidget @widget="post" @args={{this.args}} @changePostOwner={{this.changePostOwner}} />
-      <DMenus />
+      <DMenus/>
     `);
 
     await click(".post-menu-area .show-post-admin-menu");
@@ -735,7 +827,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("reply - without permissions", async function (assert) {
     this.set("args", { canCreatePost: false });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists(".post-controls .create"));
   });
@@ -743,7 +836,8 @@ module("Integration | Component | Widget | post", function (hooks) {
   test("replies - no replies", async function (assert) {
     this.set("args", { replyCount: 0 });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.show-replies"));
   });
@@ -752,7 +846,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.siteSettings.suppress_reply_directly_below = true;
     this.set("args", { replyCount: 2, replyDirectlyBelow: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.strictEqual(count("button.show-replies"), 1);
   });
@@ -761,7 +856,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.siteSettings.suppress_reply_directly_below = true;
     this.set("args", { replyCount: 1, replyDirectlyBelow: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(!exists("button.show-replies"));
   });
@@ -770,7 +866,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     this.siteSettings.suppress_reply_directly_below = false;
     this.set("args", { id: 6654, replyCount: 1, replyDirectlyBelow: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     await click("button.show-replies");
     assert.strictEqual(count("section.embedded-posts.bottom .cooked"), 1);
@@ -782,7 +879,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     const topic = store.createRecord("topic", { id: 123 });
     this.set("args", { topic, post_number: 1, topicMap: true });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.dom(".topic-map").exists();
   });
@@ -797,7 +895,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     });
     this.set("args", { topic, post_number: 1 });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.dom(".topic-map").exists();
   });
@@ -819,7 +918,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       post_number: 1,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
     assert.dom(".topic-map__users-trigger").doesNotExist();
     assert.dom(".topic-map__users-list a.poster").exists({ count: 2 });
   });
@@ -847,7 +947,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       post_number: 1,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
     assert.dom(".topic-map__users-list a.poster").exists({ count: 5 });
 
     await click(".topic-map__users-trigger");
@@ -873,7 +974,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     ]);
     this.set("args", { topic, post_number: 1 });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.dom(".topic-map").exists({ count: 1 });
     assert.dom(".topic-map__links-content").doesNotExist();
@@ -893,7 +995,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     });
     this.set("args", { topic, post_number: 1 });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.dom(".topic-map").exists();
     assert.dom(".summarization-button .top-replies").doesNotExist();
@@ -909,7 +1012,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     });
     this.set("args", { topic, post_number: 1 });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.dom(".summarization-button .top-replies").exists({ count: 1 });
   });
@@ -928,7 +1032,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       post_number: 1,
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.dom(".topic-map__private-message-map").exists({ count: 1 });
     assert.dom(".topic-map__private-message-map .user").exists({ count: 1 });
@@ -950,7 +1055,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       },
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.strictEqual(
       query(".post-notice.returning-user:not(.old)").innerText.trim(),
@@ -972,7 +1078,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       notice: { type: "new_user" },
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.strictEqual(
       query(".post-notice.old.new-user").innerText.trim(),
@@ -986,7 +1093,8 @@ module("Integration | Component | Widget | post", function (hooks) {
       requestedGroupName: "testGroup",
     });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     const link = query(".group-request a");
     assert.strictEqual(link.innerText.trim(), I18n.t("groups.requests.handle"));
@@ -1006,7 +1114,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     const user = store.createRecord("user", { status });
     this.set("args", { user });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.ok(exists(".user-status-message"));
   });
@@ -1021,7 +1130,8 @@ module("Integration | Component | Widget | post", function (hooks) {
     const user = store.createRecord("user", { status });
     this.set("args", { user });
 
-    await render(hbs`<MountWidget @widget="post" @args={{this.args}} />`);
+    await render(hbs`
+      <MountWidget @widget="post" @args={{this.args}} />`);
 
     assert.notOk(exists(".user-status-message"));
   });
