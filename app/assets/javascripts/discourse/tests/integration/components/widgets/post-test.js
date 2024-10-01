@@ -1,3 +1,5 @@
+// deprecated in favor of ./post-test-with-glimmer-post-menu.js
+
 import EmberObject from "@ember/object";
 import { getOwner } from "@ember/owner";
 import { click, render, triggerEvent } from "@ember/test-helpers";
@@ -14,6 +16,10 @@ import I18n from "discourse-i18n";
 
 module("Integration | Component | Widget | post", function (hooks) {
   setupRenderingTest(hooks);
+
+  hooks.beforeEach(function () {
+    this.siteSettings.glimmer_post_menu_mode = "disabled";
+  });
 
   test("basic elements", async function (assert) {
     const store = getOwner(this).lookup("service:store");
