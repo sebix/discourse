@@ -76,7 +76,7 @@ class CurrentUserSerializer < BasicUserSerializer
              :use_admin_sidebar,
              :can_view_raw_email,
              :use_glimmer_topic_list?,
-             :use_glimmer_post_menu?,
+             :use_auto_glimmer_post_menu?,
              :login_method,
              :render_experimental_about_page,
              :has_unseen_features
@@ -332,7 +332,7 @@ class CurrentUserSerializer < BasicUserSerializer
     scope.user.in_any_groups?(SiteSetting.experimental_glimmer_topic_list_groups_map)
   end
 
-  def use_glimmer_post_menu?
+  def use_auto_glimmer_post_menu?
     scope.user.in_any_groups?(SiteSetting.experimental_glimmer_post_menu_groups_map)
   end
 
