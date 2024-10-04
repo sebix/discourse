@@ -327,19 +327,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.edit"), "button is not displayed");
   });
 
-  test("recover button", async function (assert) {
-    this.set("args", { canDelete: true });
-    this.set("deletePost", () => (this.deletePostCalled = true));
-
-    await render(
-      hbs`
-        <MountWidget @widget="post" @args={{this.args}} @deletePost={{this.deletePost}} />`
-    );
-
-    await click("button.delete");
-    assert.ok(this.deletePostCalled, "it triggered the delete action");
-  });
-
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("delete topic button", async function (assert) {
     this.set("args", { canDeleteTopic: true });
     this.set("deletePost", () => (this.deletePostCalled = true));
@@ -353,6 +341,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(this.deletePostCalled, "it triggered the delete action");
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test(`delete topic button - can't delete`, async function (assert) {
     this.set("args", { canDeleteTopic: false });
 
@@ -362,6 +351,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.delete"), `button is not displayed`);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test(`delete topic button - can't delete when topic author without permission`, async function (assert) {
     this.set("args", {
       canDeleteTopic: false,
@@ -383,6 +373,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     );
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("recover topic button", async function (assert) {
     this.set("args", { canRecoverTopic: true });
     this.set("recoverPost", () => (this.recovered = true));
@@ -396,6 +387,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(this.recovered);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test(`recover topic button - can't recover`, async function (assert) {
     this.set("args", { canRecoverTopic: false });
 
@@ -405,6 +397,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.recover"), `button is not displayed`);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("delete post button", async function (assert) {
     this.set("args", { canDelete: true, canFlag: true });
     this.set("deletePost", () => (this.deletePostCalled = true));
@@ -419,6 +412,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(this.deletePostCalled, "it triggered the delete action");
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test(`delete post button - can't delete`, async function (assert) {
     this.set("args", { canDelete: false });
 
@@ -428,6 +422,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.delete"), `button is not displayed`);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test(`delete post button - can't delete, can't flag`, async function (assert) {
     this.set("args", {
       canDeleteTopic: false,
@@ -442,6 +437,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.create-flag"), `flag button is not displayed`);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("recover post button", async function (assert) {
     this.set("args", { canRecover: true });
     this.set("recoverPost", () => (this.recovered = true));
@@ -455,6 +451,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(this.recovered);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test(`recover post button - can't recover`, async function (assert) {
     this.set("args", { canRecover: false });
 
