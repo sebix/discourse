@@ -596,6 +596,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists(".expand-post"), "button is gone");
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("can't bookmark", async function (assert) {
     this.set("args", { canBookmark: false });
 
@@ -606,6 +607,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.bookmarked"));
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("bookmark", async function (assert) {
     const args = { canBookmark: true };
 
