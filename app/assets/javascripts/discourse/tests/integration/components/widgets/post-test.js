@@ -849,6 +849,7 @@ module("Integration | Component | Widget | post", function (hooks) {
       .doesNotExist("also hides the menu");
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("reply", async function (assert) {
     this.set("args", { canCreatePost: true });
     this.set("replyToPost", () => (this.replied = true));
@@ -861,6 +862,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(this.replied);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("reply - without permissions", async function (assert) {
     this.set("args", { canCreatePost: false });
 
@@ -870,6 +872,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists(".post-controls .create"));
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("replies - no replies", async function (assert) {
     this.set("args", { replyCount: 0 });
 
@@ -879,6 +882,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.show-replies"));
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("replies - multiple replies", async function (assert) {
     this.siteSettings.suppress_reply_directly_below = true;
     this.set("args", { replyCount: 2, replyDirectlyBelow: true });
@@ -889,6 +893,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.strictEqual(count("button.show-replies"), 1);
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("replies - one below, suppressed", async function (assert) {
     this.siteSettings.suppress_reply_directly_below = true;
     this.set("args", { replyCount: 1, replyDirectlyBelow: true });
@@ -899,6 +904,7 @@ module("Integration | Component | Widget | post", function (hooks) {
     assert.ok(!exists("button.show-replies"));
   });
 
+  // glimmer-post-menu: deprecated in favor of spec/system/post_menu_spec.rb
   test("replies - one below, not suppressed", async function (assert) {
     this.siteSettings.suppress_reply_directly_below = false;
     this.set("args", { id: 6654, replyCount: 1, replyDirectlyBelow: true });
