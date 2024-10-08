@@ -7,9 +7,9 @@ in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.38.0] - 2024-10-03
+## [1.37.3] - 2024-10-03
 
-- Added `postMenuButtons` which allows for manipulation of the post menu buttons. This includes, adding, removing, replacing the component or modifying the order of the buttons.
+- Deprecated the old post menu APIs in favor of the value transformer `post-menu-registered-buttons`
 
 ## [1.37.2] - 2024-10-02
 
