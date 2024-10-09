@@ -1,6 +1,14 @@
-export default function (element) {
-  element.focus();
+import { helperContext } from "discourse-common/lib/helpers";
 
+export default function (element) {
+  const caps = helperContext().capabilities;
+
+  // testing this out, DON NOT COMMIT
+  if (caps.isIOS) {
+    return;
+  }
+
+  element.focus();
   const len = element.value.length;
   element.setSelectionRange(len, len);
 
