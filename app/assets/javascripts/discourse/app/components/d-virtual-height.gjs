@@ -119,8 +119,8 @@ export default class DVirtualHeight extends Component {
       // accessory bar height is 55px, using 75 allows a small buffer
       if (this.capabilities.isIpadOS) {
         document.documentElement.style.setProperty(
-          "--composer-ipad-padding",
-          `${viewportWindowDiff < 75 ? viewportWindowDiff : 0}px`
+          "--software-keyboard-bottom-offset",
+          `${viewportWindowDiff}px`
         );
       }
     }

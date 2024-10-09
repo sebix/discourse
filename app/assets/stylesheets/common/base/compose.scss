@@ -38,7 +38,7 @@ html.composer-open {
   }
   z-index: z("composer", "content");
   transition: height 250ms ease, background 250ms ease, transform 250ms ease,
-    max-width 250ms ease, padding-bottom 250ms ease;
+    max-width 250ms ease, padding-bottom 250ms ease, bottom 250ms ease;
   background-color: var(--secondary);
   box-shadow: var(--shadow-composer);
 
@@ -617,9 +617,20 @@ div.ac-wrap {
   }
 }
 
-body.ios-safari-composer-hacks {
-  #main-outlet,
-  header,
+#reply-control.open {
+  --min-height: 255px;
+  min-height: var(--min-height);
+  max-height: calc(100vh - var(--header-offset, 4em));
+  &.composer-action-reply {
+    // we can let the reply composer get a little shorter
+    min-height: calc(var(--min-height) - 4em);
+  }
+  padding-bottom: calc(10px + env(keyboard-inset-height));
+  box-sizing: border-box;
+}
+
+// for iPhones
+.keyboard-visible.ios-device {
   .grippie,
   html:not(.fullscreen-composer) & .toggle-fullscreen {
     display: none;
@@ -633,18 +644,10 @@ body.ios-safari-composer-hacks {
   }
 }
 
-body:not(.ios-safari-composer-hacks) {
-  #reply-control.open {
-    --min-height: 255px;
-    min-height: var(--min-height);
-    max-height: calc(100vh - var(--header-offset, 4em));
-    &.composer-action-reply {
-      // we can let the reply composer get a little shorter
-      min-height: calc(var(--min-height) - 4em);
-    }
-    padding-bottom: var(--composer-ipad-padding);
-    padding-bottom: calc(10px + env(keyboard-inset-height));
-    box-sizing: border-box;
+// probably should use another way to detect iPad
+.keyboard-visible.discourse-touch:not(.ios-device) {
+  #reply-control {
+    bottom: var(--software-keyboard-bottom-offset);
   }
 }
 
