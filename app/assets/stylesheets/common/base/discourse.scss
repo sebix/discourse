@@ -242,11 +242,10 @@ input[type="search"] {
 
 // Safari hack to prevent scrolling when focusing an input
 // See https://gist.github.com/kiding/72721a0553fa93198ae2bb6eefaa3299
-// TODO: use a Safari iOS/iPadOS specific selector
-.discourse-touch {
+.ios-device {
   input:focus,
   textarea:focus {
-    animation: blink_input_opacity_to_prevent_scrolling_when_focus 0.05s;
+    animation: blink_input_opacity_to_prevent_scrolling_when_focus 0.01s;
   }
 }
 
