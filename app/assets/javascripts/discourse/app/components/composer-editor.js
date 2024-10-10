@@ -223,6 +223,13 @@ export default class ComposerEditor extends Component.extend(
     const input = this.element.querySelector(".d-editor-input");
     const preview = this.element.querySelector(".d-editor-preview-wrapper");
 
+    // Focus on the body unless we have a title
+    // Keep this as easrly as possible in call stack
+    // because iOS needs focus to be set as part of user interaction
+    if (!this.get("composer.canEditTitle")) {
+      putCursorAtEnd(input);
+    }
+
     if (this.siteSettings.enable_mentions) {
       $(input).autocomplete({
         template: findRawTemplate("user-selector-autocomplete"),
@@ -254,11 +261,6 @@ export default class ComposerEditor extends Component.extend(
     );
 
     this._registerImageAltTextButtonClick(preview);
-
-    // Focus on the body unless we have a title
-    if (!this.get("composer.canEditTitle")) {
-      putCursorAtEnd(input);
-    }
 
     if (this.allowUpload) {
       this._bindUploadTarget();

@@ -24,15 +24,17 @@ export default class ComposerTitle extends Component {
     super.didInsertElement(...arguments);
     const titleInput = this.element.querySelector("input");
 
+    // Keep this as easrly as possible in call stack
+    // because iOS needs focus to be set as part of user interaction
+    if (this.focusTarget === "title") {
+      putCursorAtEnd(titleInput);
+    }
+
     this._focusHandler = () => this.set("isTitleFocused", true);
     this._blurHandler = () => this.set("isTitleFocused", false);
 
     titleInput.addEventListener("focus", this._focusHandler);
     titleInput.addEventListener("blur", this._blurHandler);
-
-    if (this.focusTarget === "title") {
-      putCursorAtEnd(titleInput);
-    }
 
     if (this.get("composer.titleLength") > 0) {
       discourseDebounce(this, this._titleChanged, 10);
