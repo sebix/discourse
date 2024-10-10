@@ -24,9 +24,6 @@ export default class DVirtualHeight extends Component {
       return;
     }
 
-    // TODO: Handle device rotation
-    this.windowInnerHeight = window.innerHeight;
-
     scheduleOnce("afterRender", this, this.debouncedOnViewportResize);
 
     window.visualViewport.addEventListener(
@@ -101,7 +98,7 @@ export default class DVirtualHeight extends Component {
     } else if (this.capabilities.isFirefox && this.capabilities.isAndroid) {
       if (
         Math.abs(
-          this.windowInnerHeight -
+          window.innerHeight -
             Math.min(window.innerHeight, window.visualViewport.height)
         ) > KEYBOARD_DETECT_THRESHOLD
       ) {
@@ -109,20 +106,16 @@ export default class DVirtualHeight extends Component {
       }
     } else {
       let viewportWindowDiff =
-        this.windowInnerHeight - window.visualViewport.height;
+        window.innerHeight - window.visualViewport.height;
       const IPAD_HARDWARE_KEYBOARD_TOOLBAR_HEIGHT = 71.5;
       if (viewportWindowDiff > IPAD_HARDWARE_KEYBOARD_TOOLBAR_HEIGHT) {
         keyboardVisible = true;
       }
 
-      // adds bottom padding when using a hardware keyboard and the accessory bar is visible
-      // accessory bar height is 55px, using 75 allows a small buffer
-      if (this.capabilities.isIpadOS) {
-        document.documentElement.style.setProperty(
-          "--software-keyboard-bottom-offset",
-          `${viewportWindowDiff}px`
-        );
-      }
+      document.documentElement.style.setProperty(
+        "--software-keyboard-height",
+        `${viewportWindowDiff}px`
+      );
     }
 
     this.appEvents.trigger("keyboard-visibility-change", keyboardVisible);
