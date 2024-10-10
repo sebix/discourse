@@ -629,25 +629,11 @@ div.ac-wrap {
   box-sizing: border-box;
 }
 
-// for iPhones
-.keyboard-visible.ios-device {
-  .grippie,
-  html:not(.fullscreen-composer) & .toggle-fullscreen {
-    display: none;
-  }
-
-  #reply-control {
-    top: 0px;
-    &.open {
-      height: calc(var(--composer-vh, 1vh) * 100);
-    }
-  }
-}
-
-// probably should use another way to detect iPad
-.keyboard-visible.discourse-touch:not(.ios-device) {
-  #reply-control {
-    bottom: var(--software-keyboard-bottom-offset);
+.keyboard-visible.ipados-device {
+  #reply-control,
+  #reply-control.fullscreen {
+    z-index: z("ipad-header-nav") + 1;
+    bottom: var(--software-keyboard-height);
   }
 }
 

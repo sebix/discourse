@@ -19,6 +19,7 @@
   }
 
   &.open {
+    max-height: 100vh;
     height: 250px;
     &.edit-title {
       height: 100%;
@@ -29,11 +30,9 @@
     height: 100%; // Android: Reduces composer jumpiness when the keyboard toggles
   }
 
-  .keyboard-visible body.ios-safari-composer-hacks &.open {
+  .keyboard-visible.ios-device &.open {
+    bottom: var(--software-keyboard-height);
     height: calc(var(--composer-vh, 1vh) * 100);
-    .reply-area {
-      padding-bottom: 6px;
-    }
   }
 
   // Firefox for Android hack
