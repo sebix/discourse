@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# This file is auto-generated from the Discourse database schema. To make changes, update
+# the "config/intermediate_db.yml" configuration file and then run `cli schema generate` to
+# regenerate this file.
+
 module Migrations::Database::IntermediateDB
   module Post
     SQL = <<~SQL

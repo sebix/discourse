@@ -6,6 +6,11 @@ module Migrations::Database::Schema
       @output = output_stream
     end
 
+    def output_file_header(header)
+      @output.puts header.gsub(/^/, "-- ")
+      @output.puts
+    end
+
     def output_table(table)
       output_create_table_statement(table)
       output_columns(table)

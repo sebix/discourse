@@ -5,8 +5,9 @@ require "syntax_tree/rake_tasks"
 
 module Migrations::Database::Schema
   class ModelWriter
-    def initialize(namespace)
+    def initialize(namespace, header)
       @namespace = namespace
+      @header = header.gsub(/^/, "# ")
     end
 
     def self.filename_for(table)
@@ -34,6 +35,8 @@ module Migrations::Database::Schema
       columns = table.sorted_columns
 
       output_stream.puts "# frozen_string_literal: true"
+      output_stream.puts
+      output_stream.puts @header
       output_stream.puts
       output_stream.puts "module #{@namespace}"
       output_stream.puts "  module #{to_singular_classname(table.name)}"
