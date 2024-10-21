@@ -54,6 +54,7 @@ module Migrations::Database::Schema
       output_stream.puts method_parameters(columns)
       output_stream.puts "  )"
       output_stream.puts "    ::Migrations::Database::IntermediateDB.insert("
+      output_stream.puts "      SQL,"
       output_stream.puts insertion_arguments(columns)
       output_stream.puts "    )"
       output_stream.puts "  end"
@@ -105,7 +106,30 @@ module Migrations::Database::Schema
     end
 
     def insertion_arguments(columns)
-      columns.map { |c| "      #{c.name}:," }.join("\n")
+      columns
+        .map do |c|
+          argument =
+            case c.datatype
+            when :datetime
+              "::Migrations::Database.format_datetime(#{c.name})"
+            when :date
+              "::Migrations::Database.format_date(#{c.name})"
+            when :boolean
+              "::Migrations::Database.format_boolean(#{c.name})"
+            when :inet
+              "::Migrations::Database.format_ip_address(#{c.name})"
+            when :blob
+              "::Migrations::Database.to_blob(#{c.name})"
+            when :json
+              "::Migrations::Database.to_json(#{c.name})"
+            when :float, :integer, :numeric, :text
+              c.name
+            else
+              raise "Unknown dataype: #{type}"
+            end
+          "      #{argument},"
+        end
+        .join("\n")
     end
   end
 end

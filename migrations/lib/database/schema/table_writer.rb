@@ -68,10 +68,14 @@ module Migrations::Database::Schema
 
     def convert_datatype(type)
       case type
-      when :string, :inet
-        "TEXT"
-      else
+      when :blob, :boolean, :date, :datetime, :float, :integer, :numeric, :text
         type.to_s.upcase
+      when :inet
+        "INET_TEXT"
+      when :json
+        "JSON_TEXT"
+      else
+        raise "Unknown dataype: #{type}"
       end
     end
 

@@ -95,8 +95,20 @@ module Migrations::Database::Schema
     end
 
     def datatype_for(column)
-      globally_modified_columns.find { |c| c[:regex].match?(column.name) }&.fetch(:datatype) ||
-        column.type
+      datatype =
+        globally_modified_columns.find { |c| c[:regex].match?(column.name) }&.fetch(:datatype) ||
+          column.type
+
+      case datatype
+      when :binary
+        :blob
+      when :string, :enum, :uuid
+        :text
+      when :jsonb
+        :json
+      else
+        datatype
+      end
     end
 
     def indexes(config)

@@ -55,5 +55,10 @@ module Migrations
       return nil if value.blank?
       Extralite::Blob.new(value)
     end
+
+    def to_json(value)
+      return value if value.nil? || value.is_a?(String)
+      Oj.dump(value, mode: :strict)
+    end
   end
 end

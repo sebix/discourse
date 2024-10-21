@@ -4,10 +4,16 @@
     "datatypes": {
       "type": "string",
       "enum": [
+        "blob",
+        "boolean",
+        "date",
+        "datetime",
+        "float",
+        "inet",
         "integer",
-        "real",
-        "text",
-        "blob"
+        "json",
+        "numeric",
+        "text"
       ]
     }
   },

@@ -34,7 +34,7 @@ schema:
     columns:
       modify:
         - regex: "^(id|.*_id)$"
-          datatype: text
+          datatype: numeric
       exclude:
         - "updated_at"
 
