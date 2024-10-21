@@ -64,6 +64,7 @@ pnpm_env = {
   "TERM" => "dumb", # simple output from ember-cli, so we can parse/forward it more easily
 }
 pnpm_env["FORWARD_HOST"] = "true" if ARGV.include?("--forward-host")
+args << "--live-reload=false" if ARGV.include?("--disable-ember-live-reload")
 
 if ARGV.include?("-u") || ARGV.include?("--unicorn")
   unicorn_env = { "DISCOURSE_PORT" => ENV["DISCOURSE_PORT"] || "4200" }
