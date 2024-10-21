@@ -16,7 +16,7 @@ module Migrations
 
   def self.load_rails_environment(quiet: false)
     message = "Loading Rails environment ..."
-    print message unless quiet
+    print message if !quiet
 
     rails_root = File.expand_path("../..", __dir__)
     # rubocop:disable Discourse/NoChdir
@@ -30,9 +30,11 @@ module Migrations
     end
     # rubocop:enable Discourse/NoChdir
 
-    print "\r"
-    print " " * message.length
-    print "\r"
+    if !quiet
+      print "\r"
+      print " " * message.length
+      print "\r"
+    end
   end
 
   def self.configure_zeitwerk

@@ -1,0 +1,109 @@
+# frozen_string_literal: true
+
+module Migrations::Database::IntermediateDB
+  module User
+    SQL = <<~SQL
+      INSERT INTO users (
+        id,
+        active,
+        admin,
+        approved,
+        approved_at,
+        approved_by_id,
+        created_at,
+        date_of_birth,
+        first_seen_at,
+        flair_group_id,
+        group_locked_trust_level,
+        ip_address,
+        last_seen_at,
+        locale,
+        manual_locked_trust_level,
+        moderator,
+        name,
+        previous_visit_at,
+        primary_group_id,
+        registration_ip_address,
+        required_fields_version,
+        silenced_till,
+        staged,
+        suspended_at,
+        suspended_till,
+        title,
+        trust_level,
+        uploaded_avatar_id,
+        username,
+        views
+      )
+      VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      )
+    SQL
+  end
+
+  def self.create!(
+    id:,
+    active: nil,
+    admin: nil,
+    approved: nil,
+    approved_at: nil,
+    approved_by_id: nil,
+    created_at:,
+    date_of_birth: nil,
+    first_seen_at: nil,
+    flair_group_id: nil,
+    group_locked_trust_level: nil,
+    ip_address: nil,
+    last_seen_at: nil,
+    locale: nil,
+    manual_locked_trust_level: nil,
+    moderator: nil,
+    name: nil,
+    previous_visit_at: nil,
+    primary_group_id: nil,
+    registration_ip_address: nil,
+    required_fields_version: nil,
+    silenced_till: nil,
+    staged: nil,
+    suspended_at: nil,
+    suspended_till: nil,
+    title: nil,
+    trust_level:,
+    uploaded_avatar_id: nil,
+    username:,
+    views: nil
+  )
+    ::Migrations::Database::IntermediateDB.insert(
+      id:,
+      active:,
+      admin:,
+      approved:,
+      approved_at:,
+      approved_by_id:,
+      created_at:,
+      date_of_birth:,
+      first_seen_at:,
+      flair_group_id:,
+      group_locked_trust_level:,
+      ip_address:,
+      last_seen_at:,
+      locale:,
+      manual_locked_trust_level:,
+      moderator:,
+      name:,
+      previous_visit_at:,
+      primary_group_id:,
+      registration_ip_address:,
+      required_fields_version:,
+      silenced_till:,
+      staged:,
+      suspended_at:,
+      suspended_till:,
+      title:,
+      trust_level:,
+      uploaded_avatar_id:,
+      username:,
+      views:,
+    )
+  end
+end
